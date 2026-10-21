@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>窑火实验室｜海上陶瓷与玻璃</title>
+<meta name="theme-color" content="#08131f">
+<style>
+:root{--bg:#07111c;--panel:#0d1b2b;--ink:#f5efe5;--muted:#b9c6d4;--gold:#efc27d;--green:#8fb9aa;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Noto Serif SC","Songti SC","Microsoft YaHei",serif;background:radial-gradient(circle at 50% -10%,#213344 0,#07111c 45%,#040a11 100%);color:var(--ink)}
+button{font:inherit}.screen{display:none;min-height:100vh}.screen.active{display:flex}
+.hero{align-items:center;justify-content:center;padding:28px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:
+radial-gradient(circle at 78% 28%,rgba(255,145,53,.27),transparent 17%),
+radial-gradient(circle at 15% 80%,rgba(57,107,152,.28),transparent 24%),
+linear-gradient(125deg,rgba(18,26,34,.1),rgba(3,8,14,.7));}
+.hero-card{position:relative;z-index:2;width:min(1050px,95vw);padding:44px;border:1px solid rgba(255,255,255,.15);border-radius:34px;background:linear-gradient(180deg,rgba(13,29,44,.76),rgba(7,15,25,.88));box-shadow:0 28px 90px rgba(0,0,0,.45);backdrop-filter:blur(12px);text-align:center}
+.kicker{letter-spacing:.34em;color:#f4d4a5;font-size:13px}.hero h1{font-size:clamp(54px,8vw,102px);line-height:1;margin:12px 0 8px;text-shadow:0 12px 38px #000}.lead{max-width:830px;margin:0 auto 22px;font-size:clamp(17px,2vw,25px);line-height:1.75;color:#eef2f5}
+.mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:760px;margin:24px auto}.mode{padding:17px 18px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.055);cursor:pointer;text-align:left}.mode.selected{outline:2px solid rgba(246,206,144,.58);background:rgba(238,194,125,.12)}.mode strong{font-size:21px;display:block;margin-bottom:5px}.mode span{font-size:13px;color:#cad4df;line-height:1.6}
+.btn{border:0;border-radius:999px;padding:14px 24px;font-weight:800;cursor:pointer;color:#2a1704;background:linear-gradient(#ffe6b6,#eeb46a);box-shadow:0 13px 28px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.55)}.btn.secondary{background:linear-gradient(#e3efff,#8fbaff);color:#10254c}.btn.ghost{background:rgba(255,255,255,.07);border:1px solid var(--line);color:#f4efe7}.btn:hover{transform:translateY(-2px)}
+.game{padding:18px;flex-direction:column;gap:14px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.seal{width:52px;height:52px;border-radius:16px;background:linear-gradient(#ffe0a8,#bd7940);color:#51300f;display:grid;place-items:center;font-size:24px;font-weight:900;box-shadow:0 10px 24px #0006}.brand h2{margin:0;font-size:30px}.brand small{color:#c6d0dd}.stats{display:flex;gap:9px;flex-wrap:wrap}.stat{min-width:120px;padding:9px 13px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.05)}.stat label{display:block;font-size:11px;letter-spacing:.15em;color:#aeb9c8}.stat strong{font-size:21px}
+.grid{display:grid;grid-template-columns:1fr 1.38fr 1fr;gap:14px;flex:1}.panel{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025));box-shadow:0 24px 70px #0005;overflow:hidden;min-height:0}.pad{padding:18px;height:100%;display:flex;flex-direction:column}.panel h3{font-size:22px;margin:0 0 10px}.target{border:1px solid var(--line);border-radius:21px;padding:15px;background:rgba(255,255,255,.05)}.badge{display:inline-block;border-radius:999px;background:rgba(255,255,255,.07);padding:5px 10px;color:#f2d7ad;font-size:12px}.target-title{font-size:34px;font-weight:900;margin:7px 0}.target p,.hint p,.explain p{color:var(--muted);line-height:1.65;margin:6px 0}.hint{margin-top:auto;padding:13px;border:1px dashed rgba(255,255,255,.15);border-radius:18px;background:#0002}
+.stage{position:relative;flex:1;min-height:440px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 44%,rgba(255,152,58,.24),transparent 28%),linear-gradient(180deg,rgba(255,255,255,.025),transparent)}
+.kiln-wrap{width:min(82%,560px);max-height:86%;filter:drop-shadow(0 28px 45px #0009);z-index:2;animation:float 4s ease-in-out infinite}.stage.burning .kiln-wrap{animation:shake .24s linear infinite}.result-wrap{position:absolute;z-index:5;bottom:5%;width:min(44%,270px);opacity:0;transform:translateY(18px) scale(.94);transition:.55s}.result-wrap.show{opacity:1;transform:translateY(0) scale(1)}
+.aura{position:absolute;width:72%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffb15666,#ff5f2412 55%,transparent 68%);filter:blur(44px);animation:pulse 3s ease-in-out infinite}
+svg{width:100%;height:auto;display:block}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.choices.two{grid-template-columns:repeat(2,1fr)}.controls h4{color:#efd1a0;margin:8px 0}.choice,.mech{position:relative;padding:12px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.045);cursor:pointer;transition:.18s}.choice:hover,.mech:hover{transform:translateY(-2px);background:rgba(255,255,255,.075)}.choice.selected,.mech.selected{outline:2px solid rgba(255,219,159,.62);background:rgba(240,196,126,.11)}.choice.selected:after,.mech.selected:after{content:"✓";position:absolute;right:9px;top:7px;color:#ffe4b5}.choice strong,.mech strong{font-size:17px;display:block}.choice span,.mech p{font-size:12px;color:#c5d0dc;line-height:1.5;margin:4px 0 0}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.explain{margin-top:11px;min-height:155px;border-radius:19px;padding:14px;border:1px solid rgba(255,255,255,.1);background:#0002}.big{font-size:24px;font-weight:900}.good{color:#ffd498}.bad{color:#ffafa7}.footer{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.dots{display:flex;gap:8px}.dot{width:11px;height:11px;border-radius:50%;background:#ffffff22}.dot.done{background:#d9a55f}.dot.now{background:#88baff;transform:scale(1.25)}
+.summary{align-items:center;justify-content:center;padding:28px}.summary-card{width:min(1050px,95vw);padding:30px;border-radius:34px;border:1px solid var(--line);background:linear-gradient(180deg,#122234dd,#081321ee);box-shadow:0 26px 80px #0007}.summary h2{font-size:48px;margin:6px 0}.sum-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:18px}.score{font-size:84px;font-weight:900;line-height:1}.stars{color:#edbd6e;font-size:30px;letter-spacing:5px}.review{display:grid;gap:9px}.review .item{padding:12px 14px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.045)}
+.modal{display:none;position:fixed;inset:0;z-index:50;place-items:center;padding:24px;background:#020710dc;backdrop-filter:blur(10px)}.modal.show{display:grid}.modal-card{width:min(900px,96vw);padding:19px;border-radius:26px;background:#0b1728;border:1px solid var(--line);box-shadow:0 28px 90px #0009}.modal-head{display:flex;justify-content:space-between;gap:10px}.close{width:42px;height:42px;border-radius:50%;border:0;background:#ffffff16;color:white;font-size:20px;cursor:pointer}
+.diagram{margin-top:14px;padding:18px;border-radius:22px;background:#f3f0e9;color:#26352f}.diagram h4{margin:0 0 10px;color:#294b3c;font-size:22px}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{padding:12px;border-radius:15px;background:white;border:1px solid #ccd4cb;min-height:100px}.box b{color:#254a3b}.spectrum{height:24px;border-radius:999px;background:linear-gradient(90deg,#7046d9,#3159ea,#1bb8de,#40bf6b,#f0d83e,#f08a2a,#d73832)}
+@keyframes float{50%{transform:translateY(-7px)}}@keyframes pulse{50%{transform:scale(1.08);opacity:1}}@keyframes shake{25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,1px)}}
+@media(max-width:1050px){.grid{grid-template-columns:1fr}.stage{min-height:430px}.game{min-height:auto}.screen{min-height:auto}.sum-grid{grid-template-columns:1fr}}@media(max-width:680px){.mode-grid,.choices,.choices.two,.flow{grid-template-columns:1fr}.hero-card{padding:28px 17px}.summary h2{font-size:36px}.score{font-size:62px}}
+</style>
+</head>
+<body>
+<div id="app">
+<section id="home" class="screen hero active">
+<div class="hero-card">
+<div class="kicker">海上陶瓷与玻璃 · 互动化学游戏</div>
+<h1>窑火实验室</h1>
+<p class="lead">选择金属离子、控制窑炉气氛、观察釉色变化；再通过焰色与色心挑战，判断颜色究竟来自“发光”还是“吸收”。</p>
+<div class="mode-grid">
+<div class="mode selected" data-mode="class"><strong>课堂挑战 · 2分钟</strong><span>5关连答，适合PPT展示后的全班扫码竞赛。</span></div>
+<div class="mode" data-mode="free"><strong>自由探索 · 无计时</strong><span>课后继续体验，不受时间限制。</span></div>
+</div>
+<button id="start" class="btn">进入实验室</button>
+</div>
+</section>
+
+<section id="game" class="screen game">
+<div class="top">
+<div class="brand"><div class="seal">窑</div><div><h2>窑火实验室</h2><small>离子 × 气氛 × 光学机制</small></div></div>
+<div class="stats"><div class="stat"><label>关卡</label><strong id="round">1 / 5</strong></div><div class="stat"><label>得分</label><strong id="score">0</strong></div><div class="stat" id="timerStat"><label>剩余时间</label><strong id="timer">02:00</strong></div></div>
+</div>
+<div class="grid">
+<div class="panel"><div class="pad">
+<h3>本回合任务</h3>
+<div class="target"><span id="badge" class="badge"></span><div id="title" class="target-title"></div><p id="desc"></p></div>
+<p id="hint"></p>
+<div class="hint"><strong>玩法</strong><p id="playHint"></p></div>
+</div></div>
+
+<div class="panel"><div class="pad">
+<h3>实验舞台</h3>
+<div id="stage" class="stage"><div class="aura"></div><div id="mainVisual" class="kiln-wrap"></div><div id="resultVisual" class="result-wrap"></div></div>
+<div class="footer"><div id="dots" class="dots"></div><button id="restart" class="btn ghost">重新开始</button></div>
+</div></div>
+
+<div class="panel"><div class="pad controls">
+<h3 id="controlTitle">实验控制台</h3>
+<div id="control"></div>
+<div class="actions"><button id="action" class="btn">点火烧制</button><button id="next" class="btn secondary" style="display:none">下一关</button></div>
+<div id="explain" class="explain"><div class="big">等待实验…</div><p>完成选择后开始。</p></div>
+</div></div>
+</div>
+</section>
+
+<section id="summary" class="screen summary"><div class="summary-card">
+<div class="kicker">EXPERIMENT COMPLETE</div><h2>实验完成</h2>
+<div class="sum-grid"><div><div id="stars" class="stars">★★★</div><div id="finalScore" class="score">50</div><p id="finalText" class="lead" style="text-align:left;margin:10px 0 18px"></p><button id="again" class="btn">再玩一次</button></div><div id="review" class="review"></div></div>
+</div></section>
+
+<div id="modal" class="modal"><div class="modal-card"><div class="modal-head"><div><h3 id="modalTitle" style="margin:0"></h3><p id="modalDesc" style="color:#bdc8d5"></p></div><button id="close" class="close">×</button></div><div id="diagram" class="diagram"></div></div></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+let mode="class",idx=0,score=0,ion=null,atm=null,choice=null,answered=false,history=[],timer=120,timerId=null;
+const ionMeta={Co:["Co²⁺","钴离子","经典青花蓝"],Fe:["Fe²⁺ / Fe³⁺","铁离子","青瓷与价态相关"],Cu:["Cu / Cu²⁺","铜","可绿，也可铜红"]};
+const atmMeta={oxidizing:["氧化气氛","氧气充足","偏向高价态"],reducing:["还原气氛","氧气不足","改变Fe/Cu价态"]};
+
+function kilnSVG(){return '<svg viewBox="0 0 520 560" aria-label="立体窑炉"><defs><radialGradient id="fire"><stop stop-color="#fff5c5"/><stop offset=".34" stop-color="#ffc64b"/><stop offset=".7" stop-color="#ff6b23"/><stop offset="1" stop-color="#6b1d14"/></radialGradient><linearGradient id="brick" x2="1" y2="1"><stop stop-color="#ad5c36"/><stop offset=".5" stop-color="#6e3428"/><stop offset="1" stop-color="#2f1c1b"/></linearGradient><filter id="sh"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-opacity=".55"/></filter></defs><g filter="url(#sh)"><path d="M95 438V230c0-122 70-184 165-184s165 62 165 184v208z" fill="url(#brick)" stroke="#d68c52" stroke-width="7"/><path d="M205 48h110v-35h-110z" fill="#56302a"/><path d="M218 13h84v-56h-84z" fill="#462723"/><path d="M165 438V275c0-69 42-113 95-113s95 44 95 113v163z" fill="#2e1c19" stroke="#d27d45" stroke-width="8"/><path d="M190 414V289c0-52 31-84 70-84s70 32 70 84v125z" fill="url(#fire)"/><ellipse cx="260" cy="420" rx="176" ry="36" fill="#1c1515"/><rect x="120" y="452" width="280" height="35" rx="12" fill="#503029"/><g stroke="#8a4932" stroke-width="4" opacity=".8"><path d="M115 150h290M101 210h318M98 270h324M98 330h324M102 390h316"/><path d="M145 92v345M205 54v383M260 47v390M315 54v383M375 92v345"/></g></g></svg>'}
+function bowlSVG(type){
+const cfg=type==="blue"?["#fbfaf4","#174ea0","#6a9bd3"]:type==="celadon"?["#a9c8b8","#6f9e8c","#d9cdb0"]:["#8e1d16","#e14d36","#f1a05e"];
+return '<svg viewBox="0 0 420 330"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="'+cfg[0]+'"/><stop offset=".55" stop-color="'+cfg[1]+'"/><stop offset="1" stop-color="'+cfg[2]+'"/></linearGradient><filter id="d"><feDropShadow dy="14" stdDeviation="12" flood-opacity=".45"/></filter></defs><g filter="url(#d)"><ellipse cx="210" cy="93" rx="154" ry="50" fill="#f7f4e8"/><path d="M56 92q18 142 154 154 136-12 154-154-46 38-154 38T56 92z" fill="url(#g)" stroke="#e8ddcb" stroke-width="8"/><ellipse cx="210" cy="92" rx="151" ry="45" fill="#f7f4e8" stroke="'+cfg[1]+'" stroke-width="8"/><ellipse cx="210" cy="92" rx="127" ry="32" fill="'+cfg[0]+'" opacity=".65"/><rect x="145" y="241" width="130" height="26" rx="12" fill="'+cfg[1]+'" opacity=".9"/>';
+if(type==="blue") return '<svg viewBox="0 0 420 330"><defs><filter id="d"><feDropShadow dy="14" stdDeviation="12" flood-opacity=".45"/></filter></defs><g filter="url(#d)"><ellipse cx="210" cy="92" rx="154" ry="50" fill="#fbfaf5"/><path d="M56 92q18 142 154 154 136-12 154-154-46 38-154 38T56 92z" fill="#faf8ef" stroke="#2151a0" stroke-width="8"/><ellipse cx="210" cy="92" rx="151" ry="45" fill="#faf8ef" stroke="#2151a0" stroke-width="8"/><g fill="none" stroke="#2151a0" stroke-width="6"><path d="M95 158q45-50 90 0t90 0 50 0"/><path d="M105 190q35-34 72 0t72 0 70 0"/></g><g fill="#2151a0"><circle cx="145" cy="138" r="10"/><circle cx="210" cy="168" r="12"/><circle cx="275" cy="138" r="10"/></g><rect x="145" y="241" width="130" height="26" rx="12" fill="#2151a0"/></g></svg>';
+return '<svg viewBox="0 0 420 330"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="'+cfg[0]+'"/><stop offset=".55" stop-color="'+cfg[1]+'"/><stop offset="1" stop-color="'+cfg[2]+'"/></linearGradient><filter id="d"><feDropShadow dy="14" stdDeviation="12" flood-opacity=".45"/></filter></defs><g filter="url(#d)"><ellipse cx="210" cy="93" rx="154" ry="50" fill="'+cfg[0]+'"/><path d="M56 92q18 142 154 154 136-12 154-154-46 38-154 38T56 92z" fill="url(#g)" stroke="#e8ddcb" stroke-width="7"/><ellipse cx="210" cy="92" rx="151" ry="45" fill="'+cfg[0]+'" stroke="'+cfg[1]+'" stroke-width="7"/><path d="M110 135q90 38 200 0M96 175q110 46 228 0" fill="none" stroke="#fff" opacity=".18" stroke-width="4"/><rect x="145" y="241" width="130" height="26" rx="12" fill="'+cfg[1]+'"/></g></svg>'}
+function burnerSVG(){return '<svg viewBox="0 0 330 560"><defs><linearGradient id="m" x2="1"><stop stop-color="#2a2d32"/><stop offset=".45" stop-color="#8e6a38"/><stop offset=".7" stop-color="#26282c"/><stop offset="1" stop-color="#c48c47"/></linearGradient><radialGradient id="f"><stop stop-color="#fff7bd"/><stop offset=".35" stop-color="#ffcf42"/><stop offset=".67" stop-color="#e66f25"/><stop offset="1" stop-color="#2a7cff"/></radialGradient><filter id="d"><feDropShadow dy="16" stdDeviation="14" flood-opacity=".45"/></filter></defs><g filter="url(#d)"><ellipse cx="165" cy="514" rx="105" ry="30" fill="#24272b"/><rect x="124" y="210" width="82" height="280" rx="18" fill="url(#m)" stroke="#e2a858" stroke-width="5"/><rect x="108" y="448" width="114" height="38" rx="10" fill="url(#m)"/><path d="M165 210c-58-77-20-139 0-180 20 41 58 103 0 180z" fill="url(#f)" opacity=".98"/><ellipse cx="165" cy="212" rx="48" ry="15" fill="#167cff"/><rect x="207" y="365" width="72" height="22" rx="10" fill="#b1793e"/></g></svg>'}
+function quartzSVG(){return '<svg viewBox="0 0 480 470"><defs><linearGradient id="q" x2="1" y2="1"><stop stop-color="#f3c17a"/><stop offset=".35" stop-color="#936642"/><stop offset=".7" stop-color="#4e3529"/><stop offset="1" stop-color="#e9ba75"/></linearGradient><filter id="d"><feDropShadow dy="14" stdDeviation="12" flood-opacity=".5"/></filter></defs><g filter="url(#d)" stroke="#f4d19b" stroke-width="3" opacity=".96"><path d="M160 380L92 185l62-105 63 104-23 196z" fill="url(#q)"/><path d="M222 395l-45-247 69-121 71 118-45 250z" fill="url(#q)"/><path d="M300 400l-18-187 62-104 58 107-44 184z" fill="url(#q)"/><path d="M75 411l10-137 54-74 48 74-24 137z" fill="url(#q)"/><path d="M188 425l15-146 51-74 52 78-18 142z" fill="url(#q)"/></g></svg>'}
+
+const rounds=[
+{type:"kiln",title:"青花蓝",badge:"第1关 · 釉色配方",desc:"让瓷器呈现青花瓷那样沉稳的蓝色。",hint:"线索：钴离子的选择性吸收。",correct:{ion:"Co",atm:"reducing"},result:"blue",success:"钴离子在氧配位环境中选择性吸收橙红光，互补色表现为蓝色。",diagram:"absorb"},
+{type:"kiln",title:"青瓷青绿",badge:"第2关 · 气氛控制",desc:"烧出龙泉青瓷般温润的青绿色。",hint:"线索：缺氧会改变铁的价态。",correct:{ion:"Fe",atm:"reducing"},result:"celadon",success:"还原气氛提高 Fe²⁺ 比例，更有利于形成温润青绿色。",diagram:"atmos"},
+{type:"kiln",title:"铜红釉",badge:"第3关 · 高难度窑变",desc:"挑战最考验窑火控制的铜红色。",hint:"线索：铜在强还原条件下可能形成微粒。",correct:{ion:"Cu",atm:"reducing"},result:"red",success:"强还原条件下铜可形成低价态或微细颗粒，使吸收与散射改变，从而形成铜红。",diagram:"copper"},
+{type:"choice",title:"焰色判定",badge:"第4关 · 电子跃迁",desc:"钠盐进入高温火焰，最典型的焰色是什么？",hint:"这是“受热激发 → 回落发光”。",visual:"burner",options:[["yellow","明亮黄色","Na"],["purple","浅紫色","K"],["bluegreen","蓝绿色","Cu"]],correctChoice:"yellow",success:"钠的激发态电子回落时发出约 589 nm 附近的黄色特征光。",diagram:"flame"},
+{type:"choice",title:"色心之谜",badge:"第5关 · 晶格缺陷",desc:"烟晶的烟褐色，更接近下面哪种机制？",hint:"线索：晶格缺陷能俘获电子或空穴。",visual:"quartz",options:[["center","缺陷俘获电子形成新能级","色心"],["flame","高温电子回落直接发光","焰色"],["melt","熔融后自然变色","熔融"]],correctChoice:"center",success:"晶格缺陷或杂质俘获电子，形成局域能级并选择性吸收可见光，使晶体呈色。",diagram:"center"}
+];
+document.querySelectorAll(".mode").forEach(e=>e.onclick=()=>{document.querySelectorAll(".mode").forEach(x=>x.classList.remove("selected"));e.classList.add("selected");mode=e.dataset.mode});
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active")}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function startTimer(){clearInterval(timerId);timer=120;$("timer").textContent=fmt(timer);$("timerStat").style.display=mode==="class"?"block":"none";if(mode!=="class")return;timerId=setInterval(()=>{timer--;$("timer").textContent=fmt(Math.max(0,timer));if(timer<=0){clearInterval(timerId);finish()}},1000)}
+function reset(){idx=0;score=0;history=[];startTimer();load();show("game")}
+$("start").onclick=reset;$("restart").onclick=reset;$("again").onclick=reset;
+function load(){answered=false;ion=atm=choice=null;let r=rounds[idx];$("round").textContent=(idx+1)+" / "+rounds.length;$("score").textContent=score;$("badge").textContent=r.badge;$("title").textContent=r.title;$("desc").textContent=r.desc;$("hint").textContent=r.hint;$("next").style.display="none";$("action").style.display="inline-block";$("explain").innerHTML='<div class="big">等待实验…</div><p>完成选择后开始。</p>';$("dots").innerHTML=rounds.map((_,i)=>'<i class="dot '+(i<idx?'done':i===idx?'now':'')+'"></i>').join("");$("resultVisual").classList.remove("show");$("resultVisual").innerHTML="";
+if(r.type==="kiln") renderKiln(r); else renderChoice(r)}
+function renderKiln(r){$("playHint").textContent="先选择离子，再选择窑内气氛，然后点火。";$("controlTitle").textContent="实验控制台";$("action").textContent="点火烧制";$("mainVisual").innerHTML=kilnSVG();$("control").innerHTML='<h4>① 选择金属离子</h4><div id="ions" class="choices"></div><h4>② 选择窑内气氛</h4><div id="atms" class="choices two"></div>';const draw=()=>{$("ions").innerHTML=Object.entries(ionMeta).map(([k,v])=>'<div class="choice '+(ion===k?'selected':'')+'" data-ion="'+k+'"><strong>'+v[0]+'</strong><span>'+v[1]+'<br>'+v[2]+'</span></div>').join("");$("atms").innerHTML=Object.entries(atmMeta).map(([k,v])=>'<div class="choice '+(atm===k?'selected':'')+'" data-atm="'+k+'"><strong>'+v[0]+'</strong><span>'+v[1]+'<br>'+v[2]+'</span></div>').join("");document.querySelectorAll("[data-ion]").forEach(e=>e.onclick=()=>{if(!answered){ion=e.dataset.ion;draw()}});document.querySelectorAll("[data-atm]").forEach(e=>e.onclick=()=>{if(!answered){atm=e.dataset.atm;draw()}})};draw()}
+function renderChoice(r){$("playHint").textContent="观察模型，判断对应的化学机制或特征现象。";$("controlTitle").textContent="机制判断";$("action").textContent="提交答案";$("mainVisual").innerHTML=r.visual==="burner"?burnerSVG():quartzSVG();$("control").innerHTML='<div id="mechs"></div>';const draw=()=>{$("mechs").innerHTML=r.options.map(o=>'<div class="mech '+(choice===o[0]?'selected':'')+'" data-choice="'+o[0]+'"><strong>'+o[1]+'</strong><p>'+o[2]+'</p></div>').join("");document.querySelectorAll("[data-choice]").forEach(e=>e.onclick=()=>{if(!answered){choice=e.dataset.choice;draw()}})};draw()}
+$("action").onclick=()=>{if(answered)return;let r=rounds[idx];if(r.type==="kiln"){if(!ion||!atm)return;answered=true;$("stage").classList.add("burning");$("explain").innerHTML='<div class="big">窑火升温中…</div><p>价态与光学环境正在变化。</p>';setTimeout(()=>{$("stage").classList.remove("burning");resolve(ion===r.correct.ion&&atm===r.correct.atm,r)},1200)}else{if(!choice)return;answered=true;resolve(choice===r.correctChoice,r)}};
+function resolve(ok,r){if(ok){score+=10;$("score").textContent=score;if(r.type==="kiln"){$("resultVisual").innerHTML=bowlSVG(r.result);$("resultVisual").classList.add("show")}}history.push({title:r.title,ok,answer:r.type==="kiln"?ionMeta[r.correct.ion][0]+" + "+atmMeta[r.correct.atm][0]:r.options.find(x=>x[0]===r.correctChoice)[1]});$("explain").innerHTML='<div class="big '+(ok?'good':'bad')+'">'+(ok?'实验成功':'这次没答对')+'</div><p>'+r.success+'</p><button id="info" class="btn ghost">查看原理图</button>';$("info").onclick=()=>openDiagram(r);$("next").style.display="inline-block";$("action").style.display="none"}
+$("next").onclick=()=>{idx++;idx>=rounds.length?finish():load()};
+function openDiagram(r){$("modalTitle").textContent=r.title+" · 原理图";$("modalDesc").textContent="用微观机制解释这一关为什么会呈现这样的颜色。";let html="";
+if(r.diagram==="absorb")html='<h4>选择性吸收与互补色</h4><div class="spectrum"></div><div class="flow"><div class="box"><b>白光</b><br>包含多种可见波长</div><div class="box"><b>Co²⁺ 配位场</b><br>d 轨道发生能级分裂</div><div class="box"><b>吸收橙红光</b><br>电子吸收特定能量跃迁</div><div class="box"><b>呈现蓝色</b><br>剩余/反射光以蓝色为主</div></div>';
+if(r.diagram==="atmos")html='<h4>窑炉气氛改变金属价态</h4><div class="flow"><div class="box"><b>氧化气氛</b><br>O₂ 较充足</div><div class="box"><b>还原气氛</b><br>O₂ 不足</div><div class="box"><b>Fe²⁺ 比例提高</b><br>吸收行为改变</div><div class="box"><b>青瓷青绿</b><br>形成温润色调</div></div>';
+if(r.diagram==="copper")html='<h4>铜红釉：价态 + 微粒效应</h4><div class="flow"><div class="box"><b>含铜釉</b><br>起初可见 Cu²⁺ 等状态</div><div class="box"><b>强还原</b><br>改变铜的化学状态</div><div class="box"><b>铜微粒</b><br>形成纳米/胶体尺度颗粒</div><div class="box"><b>铜红</b><br>吸收和散射共同塑造红色</div></div>';
+if(r.diagram==="flame")html='<h4>焰色反应：先吸热，再发光</h4><div class="flow"><div class="box"><b>高温火焰</b><br>粒子吸收热能</div><div class="box"><b>电子激发</b><br>跃迁到高能级</div><div class="box"><b>回落</b><br>释放特征波长光子</div><div class="box"><b>Na：黄色</b><br>约 589 nm 附近</div></div>';
+if(r.diagram==="center")html='<h4>色心：晶格缺陷导致吸收显色</h4><div class="flow"><div class="box"><b>晶格缺陷</b><br>空位或杂质</div><div class="box"><b>俘获电子</b><br>形成局域能级</div><div class="box"><b>选择性吸收</b><br>某些可见光被吸收</div><div class="box"><b>烟晶</b><br>透射光剩下烟褐色调</div></div>';$("diagram").innerHTML=html;$("modal").classList.add("show")}
+$("close").onclick=()=>$("modal").classList.remove("show");$("modal").onclick=e=>{if(e.target===$("modal"))$("modal").classList.remove("show")};
+function finish(){clearInterval(timerId);$("finalScore").textContent=score;$("stars").textContent=score===50?"★★★":score>=30?"★★☆":score>=10?"★☆☆":"☆☆☆";$("finalText").textContent=score===50?"满分！你已经能从离子、气氛、电子跃迁和晶格缺陷四个层面解释材料颜色。":score>=30?"你已经掌握大部分关键规律，再试一次就能成为“首席窑火实验员”。":"再挑战一次，重点区分“发光”和“吸收显色”两类机制。";$("review").innerHTML=history.map((h,i)=>'<div class="item"><strong>第'+(i+1)+'关 · '+h.title+'</strong><p style="color:'+(h.ok?'#f1d099':'#ffb2aa')+'">'+(h.ok?'✅ 正确':'❌ 未通过')+'</p><p style="color:#c8d2de">正确答案：'+h.answer+'</p></div>').join("");show("summary")}
+</script>
+</body></html>
